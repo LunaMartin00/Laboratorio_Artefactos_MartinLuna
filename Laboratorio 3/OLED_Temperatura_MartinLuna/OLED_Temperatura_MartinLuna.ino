@@ -1,61 +1,20 @@
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SH110X.h>
-
-#define i2c_Address 0x3C
-
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#define OLED_RESET -1
-const int LM35 = A1;
-int lectura;
-float temperatura;
-
-Adafruit_SH1106G display(
-  SCREEN_WIDTH,
-  SCREEN_HEIGHT,
-  &Wire,
-  OLED_RESET
-);
-
 void setup() {
-
-  Serial.begin(9600);
-
   
-  Wire.begin();
+  Serial.begin(115200);
 
-  delay(250);
+  delay(1000);
 
-  
-  if (!display.begin(i2c_Address, true)) {
-    Serial.println("ERROR: OLED no encontrada");
-
-    while (1);
-  }
-
-  Serial.println("OLED funcionando correctamente");
-
-  
- 
+  Serial.println("===========================");
+  Serial.println(" José Martín Luna Ramos 00308324");
+  Serial.println("===========================");
+  Serial.println();
 }
 
 void loop() {
-  
-  lectura = analogRead(LM35);
-  temperatura = (lectura*(5.0)/(1023.0))*100;
-  Serial.println("Acá tienes la temperatura: ");
-  Serial.println(temperatura);
-  display.clearDisplay();
+  Serial.print("ESP32 funcionando correctamente - Tiempo activa: ");
+  Serial.print(millis() / 1000.0);
+  Serial.println(" segundos");
 
-  display.setTextColor(SH110X_WHITE);
-  display.setTextSize(1.5);
-  display.setCursor(15, 10);
-  display.println("Temperatura: ");
-  display.println(temperatura);
-
-
-  
-  display.display();
   delay(2000);
+
 }
